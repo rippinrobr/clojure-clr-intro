@@ -1,3 +1,14 @@
+;;------------------------------------------------------------------
+;; 0.) Getting Started with Clojure-CLR
+;;     Ensures that your clojure-clr environment is setup correctly
+;;     and shows you how to call static .NET methods.
+;;
+;;     The code is a compilation of REPL entries I used in my
+;;     "Getting Started with Clojure-CLR" blogpost 
+
+;;     http://rob-rowe.blogspot.com/2011/10/getting-started-with-clojure-clr.html     
+;;-------------------------------------------------------------------
+
 (ns intro
    (:gen-class))
 
