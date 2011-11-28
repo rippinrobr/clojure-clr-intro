@@ -1,6 +1,19 @@
 (ns mysql)
+;; Loads the assembly that contains the MySql related 
+;; objects.  The assembly cna be downloaded from
+;; here: http://dev.mysql.com/downloads/connector/net/
 (System.Reflection.Assembly/LoadWithPartialName "MySql.Data")
 
+;; 
+;; Pretty straitforward:
+;; 1. Create the MySqlConnection by passing in the connection string
+;; 2. Create the MySqlCommand object passing in the CommandText and
+;;    the SqlConnection object that you want to use when running the
+;;    command.
+;; 3. Execute the command.  Since I'm doing a select I use the ExecuteReader
+;;    method.  This allows me to read the results of my statement.
+;; 4. While I have rows to read, read them and write out the player's id
+;; 5. Clean up after myself by closing the reading and the connection
 (defn my-run-it
   [] 
   (let [
