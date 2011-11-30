@@ -21,6 +21,7 @@
          reader (.ExecuteReader cmd)]
        (while (.Read reader)
         (println (str "playerId: " (.GetString reader 2))))
+       (println "The previous lines were retrieved from MS SQL SERVER")
      (.Close reader) 
      (.Close conn)))
      
