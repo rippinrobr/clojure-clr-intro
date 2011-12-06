@@ -2,6 +2,9 @@
 ;; Loads the assembly that contains the MySql related 
 ;; objects.  The assembly cna be downloaded from
 ;; here: http://dev.mysql.com/downloads/connector/net/
+;; If you do not have MySql.Data in the GAC you can
+;; load it with this function:
+;; (assembly-load-from "the path to the dll")
 (System.Reflection.Assembly/LoadWithPartialName "MySql.Data")
 
 ;; 
