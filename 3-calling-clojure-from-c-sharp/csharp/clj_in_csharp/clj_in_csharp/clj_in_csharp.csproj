@@ -37,19 +37,39 @@
     <Reference Include="Clojure">
       <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\Clojure.dll</HintPath>
     </Reference>
-    <Reference Include="clojure.clr.io.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core.protocols.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core_clr.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core_deftype.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core_print.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.core_proxy.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.genclass.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="clojure.gvec.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="one, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <ExecutableExtension>.exe</ExecutableExtension>
+    <Reference Include="clojure.clr.io.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.clr.io.clj.dll</HintPath>
     </Reference>
-    <Reference Include="one.clj, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="clojure.core.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.core.protocols.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core.protocols.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.core_clr.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core_clr.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.core_deftype.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core_deftype.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.core_print.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core_print.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.core_proxy.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.core_proxy.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.genclass.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.genclass.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="clojure.gvec.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\clojure.gvec.clj.dll</HintPath>
+    </Reference>
+    <Reference Include="one">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\one.exe</HintPath>
+    </Reference>
+    <Reference Include="one.clj">
+      <HintPath>..\..\..\..\..\..\Tools\clojure-clr-1.3.0-Debug-4.0\one.clj.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
