@@ -12,32 +12,39 @@
   (:require [clojure.core])
   (:gen-class
    :methods [#^{:static true}
-		  [standings [System.String System.Object] System.String]
-		#^{:static true} [ba [int int int] double]]))
+          [standings [System.String System.Object] System.String]
+        #^{:static true} [ba [int int int] double]
+        #^{:static true} [ba2 [int int] double]]))
 
 (defn ba
   "calculates the batting average for the hits and at-bats provided.
    If ab is zero then zero is returned"
   [h ab]
   (if (= ab 0) 0
-	  (double (/ h ab))))
+      (double (/ h ab))))
 
 (defn standings
   "Given a team id keyword a string is returned that states which place
   the team finished in 2011."
   [team] 
   (condp = (keyword team)
-	:ari "Arizona came in first" 
-	:sfg "San Francisco came in second. Still finished ahead of the Dodgers!"
-	:lad "Los Angeles came in third"
-	:col "Colorado came in fourth"
-	:sdp "San Diego came in last"
-	))
+    :ari "Arizona came in first" 
+    :sfg "San Francisco came in second. Still finished ahead of the Dodgers!"
+    :lad "Los Angeles came in third"
+    :col "Colorado came in fourth"
+    :sdp "San Diego came in last"
+    ))
+
+(defn -ba2
+  [h ab]
+  (println "-ba2 params => h = " h " ab = " ab)
+  (double (ba h ab)))
 
 (defn -ba
   [h ab dummy]
   (println "-ba params => dummy = " dummy " h = " h " ab = " ab)
   (double (ba h ab)))
+
 
 (defn  -standings
   [team dummy]
@@ -48,7 +55,9 @@
   []
   (println "This is one.clj...using a more C# way of calling Clojure code. ")
   (println)
-  (println "(-ba 3 14 0) => " (str (-ba 3 14 0)))
+  (println "(-ba 10 20 0) => " (str (-ba 10 20 0)))
+  (println)
+  (println "(-ba2 10 20) => " (str (-ba2 10 20)))
   (println)
   (println "(-standings \"sfg\") => " (-standings "sfg" 0))
  )
