@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clj_in_csharp", "clj_in_csharp\clj_in_csharp.csproj", "{22AF4515-296C-4352-B672-9C6C3FB64A91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clj4_in_csharp", "clj4_in_csharp\clj4_in_csharp.csproj", "{8A5A6FC8-8114-4E60-92ED-0F0B58246A4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{22AF4515-296C-4352-B672-9C6C3FB64A91}.Debug|x86.Build.0 = Debug|x86
 		{22AF4515-296C-4352-B672-9C6C3FB64A91}.Release|x86.ActiveCfg = Release|x86
 		{22AF4515-296C-4352-B672-9C6C3FB64A91}.Release|x86.Build.0 = Release|x86
+		{8A5A6FC8-8114-4E60-92ED-0F0B58246A4E}.Debug|x86.ActiveCfg = Debug|x86
+		{8A5A6FC8-8114-4E60-92ED-0F0B58246A4E}.Debug|x86.Build.0 = Debug|x86
+		{8A5A6FC8-8114-4E60-92ED-0F0B58246A4E}.Release|x86.ActiveCfg = Release|x86
+		{8A5A6FC8-8114-4E60-92ED-0F0B58246A4E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,2 +1,6 @@
 *~
 1-calling-a-dotnet-method/*.txt
+*ReSharper*
+*bin/
+*obj/
+*.suo
