@@ -23,8 +23,8 @@ namespace clj4_in_csharp
             Console.WriteLine();
             Console.ForegroundColor = defaultColor;
 
-            WriteResults(string.Format("one.ba(0, {0}, {1}) => {2}", h, ab, one14.ba(h, ab)));
-            WriteResults(string.Format("one.standing(\"\", \"sfg\") => {0}", one14.standings("sfg")));
+            WriteResults(string.Format("one.ba({0}, {1}) => {2}", h, ab, one14.ba(h, ab)));
+            WriteResults(string.Format("one.standing(\"sfg\") => {0}", one14.standings("sfg")));
         }
     }
 }

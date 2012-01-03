@@ -25,7 +25,6 @@ namespace clj_in_csharp
             Console.ForegroundColor = defaultColor;
 
             WriteResults(string.Format("one.ba(0, {0}, {1}) => {2}", h, ab, one.ba(0, h, ab)));
-            WriteResults(string.Format("one.ba2({0}, {1}) => {2}", h, ab, one.ba2(h, ab)));
             WriteResults(string.Format("one.standing(\"\", \"sfg\") => {0}", one.standings("", "sfg")));                 
         }
     }

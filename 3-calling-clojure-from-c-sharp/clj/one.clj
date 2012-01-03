@@ -55,10 +55,10 @@
   []
   (println "This is one.clj...using a more C# way of calling Clojure code. ")
   (println)
-  (println "(-ba 10 20 0) => " (str (-ba 10 20 0)))
+  (println "(-ba 10 20 0) => " (str (cs-ba 10 20 0)))
   (println)
-  (println "(-ba2 10 20) => " (str (-ba2 10 20)))
+  (println "(-ba2 10 20) => " (str (cs-ba2 10 20)))
   (println)
-  (println "(-standings \"sfg\") => " (-standings "sfg" 0))
+  (println "(-standings \"sfg\") => " (cs-standings "sfg" 0))
  )
  
