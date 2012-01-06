@@ -1,10 +1,13 @@
 (System.Reflection.Assembly/LoadWithPartialName "System.Windows.Forms")
 
 (ns ui
-  (:import [System.Windows.Forms Button GroupBox CheckedListBox Form TableLayoutPanel MessageBox PaintEventHandler Label]); FontStyle])
-  (:import [System.Drawing Size Font FontStyle])
+  (:import [System.Windows.Forms Button GroupBox CheckedListBox Form
+	    TableLayoutPanel MessageBox PaintEventHandler Label])
+  (:import [System.Drawing Size Font FontStyle Point])
   (:use db.mysql)
   (:gen-class))
+
+(def conn-str "SERVER=localhost;DATABASE=bdb_post_2010;UID=rob-clr;PASSWORD=rob-clr;")
 
 (defn -main
   [& args]
@@ -14,35 +17,54 @@
 	migrate-btn (Button.)
 	grp-box (GroupBox.)
 	chkd-list (CheckedListBox.)
+	title-str "Rob's Table Migration Tool ClojureCLR style!"
 	]
 
-    (.set_Text title-lbl "Rob's Table Migrator Tool")
-    (.set_Location title-lbl (System.Drawing.Point. 12 12))
-    (.set_Size title-lbl (System.Drawing.Size. 360 12))
+    (.set_Text form title-str)
     
+    ; Title Label
+    (.set_Text title-lbl title-str)
+    (.set_Location title-lbl (Point. 12 12))
+    (.set_Size title-lbl (Size. 360 22))
+    (.set_Font title-lbl (Font. "Microsoft Sans Serif" 12.0 System.Drawing.FontStyle/Bold System.Drawing.GraphicsUnit/Point 0))
     
+    ; GroupBox
     (.set_Text grp-box "Database Tables")
-    (.set_Location grp-box (System.Drawing.Point. 12 48))
-    (.set_Size grp-box (System.Drawing.Size. 360 333))
+    (.set_Location grp-box (Point. 12 48))
+    (.set_Size grp-box (Size. 360 333))
 
+    ; CheckedListBox
+    (.set_Location chkd-list (Point. 4 20))
+    (.set_Name chkd-list "tableCheckedList")
+    (.set_Size chkd-list (Size. 345 304))
+
+    ; Load Button
     (.set_Name load-btn "loadButton")
-    (.set_Location load-btn (System.Drawing.Point. 12 384))
+    (.set_Location load-btn (Point. 12 384))
     (.set_Text load-btn "Load Table Names")
-    
-    (.set_Location migrate-btn (System.Drawing.Point. 266 384))
-    (.set_Text migrate-btn "Migrate Tables...")
-    (.set_Size migrate-btn (System.Drawing.Size. 105 23))
 
+    ; Migrate button
+    (.set_Location migrate-btn (Point. 266 384))
+    (.set_Text migrate-btn "Migrate Tables...")
+    (.set_Size migrate-btn (Size. 105 23))
+
+    ; Put things together
     (.Add (.Controls form) title-lbl)
     (.Add (.Controls form) load-btn)
     (.Add (.Controls form) migrate-btn)
+    
+    (.Add (.Controls grp-box) chkd-list)
     (.Add (.Controls form) grp-box)
-
+    
     (.add_Click load-btn
       (gen-delegate EventHandler [sender args]
-	(MessageBox/Show "Thanks for clickin'!")))		      
+	(let [con (get-connection conn-str)
+	      tables (map #(:Tables_in_bdb_post_2010 %) (get-tables con))]
+	  (doseq [t tables] (.Add (.Items chkd-list) t))
+	  (.Close con))
+      ))		      
 
-    (.set_Text form "Rob's Table Migration Tool ClojureCLR style!")
+    
     (doto form
       (.set_Size (Size. 400 520))
       .ShowDialog)

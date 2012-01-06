@@ -3,10 +3,14 @@
 
 (ns db.mysql
   (:import [MySql.Data.MySqlClient MySqlConnection MySqlCommand])
+  (:import [System.Data.Common DbConnection DbCommand])
   (:import [System.Data DataTable]))
+
+(def ^{:dynamic true :clr true} *db* {:connection nil :level 0})
 
 (defn- run-sql
   [conn sql]
+  (if (= "Closed" (str (.State conn))) (.Open conn))
   (let [cmd (MySqlCommand. sql conn)
 	reader (.ExecuteReader cmd)
 	dt (DataTable.)
@@ -26,4 +30,3 @@
 (defn get-connection
   [con-str]
   (MySqlConnection. con-str))
-  
