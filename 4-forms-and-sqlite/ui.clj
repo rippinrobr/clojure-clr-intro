@@ -5,6 +5,7 @@
 	    TableLayoutPanel MessageBox PaintEventHandler Label])
   (:import [System.Drawing Size Font FontStyle Point])
   (:use db.mysql)
+  (:require [db.sqlite :as sql])
   (:gen-class))
 
 (def conn-str "SERVER=localhost;DATABASE=bdb_post_2010;UID=rob-clr;PASSWORD=rob-clr;")
@@ -55,7 +56,8 @@
     
     (.Add (.Controls grp-box) chkd-list)
     (.Add (.Controls form) grp-box)
-    
+
+    ;; Adding the button click event handlers
     (.add_Click load-btn
       (gen-delegate EventHandler [sender args]
 	(let [con (get-connection conn-str)
@@ -64,10 +66,15 @@
 	  (.Close con))
       ))		      
 
+    (.add_Click migrate-btn
+      (gen-delegate EventHandler [sender args]
+		    (let [mysql-con (get-connection conn-str)
+			  sqlite-con (sql/get-connection "")]
+	  
+	  (doseq [c (.CheckedItems chkd-list)]
+	    (sql/create-table c (get-columns mysql-con c)))
+	  (.Close mysql-con))))      
     
     (doto form
       (.set_Size (Size. 400 520))
-      .ShowDialog)
-    
-    (println "load-btn.Name " (.Name load-btn))
-    (println "created buttons!")))
+      .ShowDialog)))
