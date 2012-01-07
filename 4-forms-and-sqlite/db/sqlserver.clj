@@ -1,5 +1,5 @@
 (System.Reflection.Assembly/LoadWithPartialName "System.Data")
-(System.Reflection.Assembly/LoadFile "c:\\code\\clojure-clr-intro\\libs\\Microsoft.SqlServer.Smo.dll")
+(System.Reflection.Assembly/LoadWithPartialName "Microsoft.SqlServer.Smo")
 
 (ns db.sqlserver
   (:import [Microsoft.SqlServer.Management.Smo Server Database Table]))
