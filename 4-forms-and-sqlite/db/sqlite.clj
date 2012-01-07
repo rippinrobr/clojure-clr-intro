@@ -1,4 +1,8 @@
-(ns db.sqlite)
+(System.Reflection.Assembly/LoadWithPartialName "System.Data")
+
+
+(ns db.sqlserver)
+  
 
 (defn create-table
   [table-name cols]
@@ -6,4 +10,4 @@
 
 (defn get-connection
   [conn-str]
-  (println "Simulated sqlite/get-connection"))
+  (System.Data.SqlClient.SqlConnection. conn-str))

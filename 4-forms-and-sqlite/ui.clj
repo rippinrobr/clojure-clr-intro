@@ -4,11 +4,12 @@
   (:import [System.Windows.Forms Button GroupBox CheckedListBox Form
 	    TableLayoutPanel MessageBox PaintEventHandler Label])
   (:import [System.Drawing Size Font FontStyle Point])
-  (:use db.mysql)
-  (:require [db.sqlite :as sql])
+  (:require [db.mysql :as mysql])
+  (:require [db.sqlserver :as sql])
   (:gen-class))
 
 (def conn-str "SERVER=localhost;DATABASE=bdb_post_2010;UID=rob-clr;PASSWORD=rob-clr;")
+(def sqlserver-conn-str "Data Source=.\\Sqlexpress;Initial Catalog=sample_baseball_databank;Integrated Security=true;")
 
 (defn -main
   [& args]
@@ -60,20 +61,23 @@
     ;; Adding the button click event handlers
     (.add_Click load-btn
       (gen-delegate EventHandler [sender args]
-	(let [con (get-connection conn-str)
-	      tables (map #(:Tables_in_bdb_post_2010 %) (get-tables con))]
+	(let [con (mysql/get-connection conn-str)
+	      tables (map #(:Tables_in_bdb_post_2010 %) (mysql/get-tables con))]
 	  (doseq [t tables] (.Add (.Items chkd-list) t))
 	  (.Close con))
       ))		      
 
     (.add_Click migrate-btn
       (gen-delegate EventHandler [sender args]
-		    (let [mysql-con (get-connection conn-str)
-			  sqlite-con (sql/get-connection "")]
-	  
+		    (let [mysql-con (mysql/get-connection conn-str)
+			  ms-db (sql/get-database ".\\SQLExpress" "clr_intro_4")]
+	  (println "class of ms-db: " (class ms-db))
+	  (println "state: " (.State ms-db))
 	  (doseq [c (.CheckedItems chkd-list)]
-	    (sql/create-table c (get-columns mysql-con c)))
-	  (.Close mysql-con))))      
+	    (println c)
+	    (sql/create-table ms-db c (mysql/get-columns mysql-con c))
+	  (.Close mysql-con)
+	  ))))      
     
     (doto form
       (.set_Size (Size. 400 520))
