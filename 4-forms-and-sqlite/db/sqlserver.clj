@@ -7,6 +7,7 @@
 
 (defn get-column-type
   [type-str]
+  (println "type-str: " type-str)
    (cond
      (> (.IndexOf type-str "smallint") -1) (DataType/SmallInt)
      (> (.IndexOf type-str "int") -1) (DataType/Int)
@@ -32,18 +33,28 @@
     :else
       (println "Unknown DataType: " type-str)))
 
+(defn nullable?
+  [col]
+  (println (:Null col))
+  (if (nil? (:Null col))
+    false
+    (if (= "NO" (:Null col)) false true)))
+
 (defn create-column
   [table col]
-  (let [c (Column. table (:Field col) )]
+  (let [data-type (get-column-type (:Type col))
+	c (Column. table (:Field col) data-type)]
+    (set! (.Nullable c) (nullable? col))
+    (if (not= System.DBNull (class (:Default col)))
+      (set! (.Default c) (:Default col)))
      c))
 
 (defn create-table
   [db table-name cols]
   (println "Creating the table" table-name)
   (let [table (Table. db table-name)]
-    (println cols)
-    table))
-    ;;(.Create table)))
+    (doseq [col cols] (.Add (.Columns table) (create-column table col)))
+    (.Create table)))
 
 (defn get-database
   [server-name db-name]
