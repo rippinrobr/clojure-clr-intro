@@ -2,7 +2,7 @@
 
 (ns ui
   (:import [System.Windows.Forms Button GroupBox CheckedListBox Form
-	    TableLayoutPanel MessageBox PaintEventHandler Label])
+	    TableLayoutPanel MessageBox PaintEventHandler Label TextBox])
   (:import [System.Drawing Size Font FontStyle Point])
   (:require [db.mysql :as mysql])
   (:require [db.sqlserver :as sql])
@@ -16,34 +16,48 @@
   (let [form (Form.)
 	load-btn (Button.)
 	title-lbl (Label.)
+	db-lbl (Label.)
+	db-txt (TextBox.)
 	migrate-btn (Button.)
 	grp-box (GroupBox.)
 	chkd-list (CheckedListBox.)
 	title-str "Rob's Table Migration Tool ClojureCLR style!"
 	]
-
-    (.set_Text form title-str)
     
     ; Title Label
-    (.set_Text title-lbl title-str)
-    (.set_Location title-lbl (Point. 12 12))
-    (.set_Size title-lbl (Size. 360 22))
-    (.set_Font title-lbl (Font. "Microsoft Sans Serif" 12.0 System.Drawing.FontStyle/Bold System.Drawing.GraphicsUnit/Point 0))
+    (doto title-lbl
+      (.set_Text title-str)
+      (.set_Location (Point. 12 12))
+      (.set_Size (Size. 360 22))
+      (.set_Font (Font. "Microsoft Sans Serif" 12.0 System.Drawing.FontStyle/Bold System.Drawing.GraphicsUnit/Point 0)))
+
+    ; DB Label
+    (doto db-lbl
+      (.set_Text "New DB Name")
+      (.set_Width 80)
+      (.set_Location (Point. 12 48)))
+
+    (doto db-txt
+      (.set_Name "newDbName")
+      (.set_Location (Point. 120 44)))
     
     ; GroupBox
-    (.set_Text grp-box "Database Tables")
-    (.set_Location grp-box (Point. 12 48))
-    (.set_Size grp-box (Size. 360 333))
+    (doto grp-box
+      (.set_Text "Database Tables")
+      (.set_Location (Point. 12 72))
+      (.set_Size (Size. 360 333)))
 
     ; CheckedListBox
-    (.set_Location chkd-list (Point. 4 20))
-    (.set_Name chkd-list "tableCheckedList")
-    (.set_Size chkd-list (Size. 345 304))
+    (doto chkd-list
+      (.set_Location (Point. 4 20))
+      (.set_Name "tableCheckedList")
+      (.set_Size (Size. 345 304)))
 
-    ; Load Button
-    (.set_Name load-btn "loadButton")
-    (.set_Location load-btn (Point. 12 384))
-    (.set_Text load-btn "Load Table Names")
+    ; Button
+    (doto load-btn
+      (.set_Name "loadButton")
+      (.set_Location (Point. 12 384))
+      (.set_Text "Load Table Names"))
 
     ; Migrate button
     (.set_Location migrate-btn (Point. 266 384))
@@ -52,6 +66,8 @@
 
     ; Put things together
     (.Add (.Controls form) title-lbl)
+    (.Add (.Controls form) db-lbl)
+    (.Add (.Controls form) db-txt)
     (.Add (.Controls form) load-btn)
     (.Add (.Controls form) migrate-btn)
     
@@ -80,5 +96,6 @@
 	  ))))      
     
     (doto form
+      (.set_Text title-str)
       (.set_Size (Size. 400 520))
       .ShowDialog)))
