@@ -7,7 +7,6 @@
 
 (defn get-column-type
   [type-str]
-  (println "type-str: " type-str)
    (cond
      (> (.IndexOf type-str "smallint") -1) (DataType/SmallInt)
      (> (.IndexOf type-str "int") -1) (DataType/Int)
@@ -22,10 +21,10 @@
 	   (DataType/Char size)
 	   (DataType/Char 32)))
      (> (.IndexOf type-str "double") -1)
-       (let [[matched-str size prec] (re-matches #".*\((\d+),\((\d+)\).*" type-str)]
-         (if (not (nil? size))
-	   (DataType/Numeric size prec)
-	   (DataType/Numeric 4 1)))
+       (let [[matched-str size prec] (re-matches #".*\((\d+).*\((\d+)\).*" type-str)]
+               (if (or (nil? size) (nil? prec))
+	   (DataType. SqlDataType/Decimal 4 1)
+	   (DataType. SqlDataType/Decimal size prec)))
      (> (.IndexOf type-str "enum") -1)
        (DataType/Char 1)  
      (> (.IndexOf type-str "date") -1)
