@@ -34,7 +34,6 @@
 
 (defn nullable?
   [col]
-  (println (:Null col))
   (if (nil? (:Null col))
     false
     (if (= "NO" (:Null col)) false true)))

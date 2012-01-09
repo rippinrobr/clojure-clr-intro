@@ -30,21 +30,11 @@
       (.set_Location (Point. 12 12))
       (.set_Size (Size. 360 22))
       (.set_Font (Font. "Microsoft Sans Serif" 12.0 System.Drawing.FontStyle/Bold System.Drawing.GraphicsUnit/Point 0)))
-
-    ; DB Label
-    (doto db-lbl
-      (.set_Text "New DB Name")
-      (.set_Width 80)
-      (.set_Location (Point. 12 48)))
-
-    (doto db-txt
-      (.set_Name "newDbName")
-      (.set_Location (Point. 120 44)))
     
     ; GroupBox
     (doto grp-box
       (.set_Text "Database Tables")
-      (.set_Location (Point. 12 72))
+      (.set_Location (Point. 12 42))
       (.set_Size (Size. 360 333)))
 
     ; CheckedListBox
@@ -56,23 +46,37 @@
     ; Button
     (doto load-btn
       (.set_Name "loadButton")
-      (.set_Location (Point. 12 384))
+      (.set_Location (Point. 12 378))
       (.set_Text "Load Table Names"))
 
-    ; Migrate button
-    (.set_Location migrate-btn (Point. 266 384))
-    (.set_Text migrate-btn "Migrate Tables...")
-    (.set_Size migrate-btn (Size. 105 23))
+    ; DB Label
+    (doto db-lbl
+      (.set_Text "New DB Name")
+      (.set_Width 80)
+      (.set_Location (Point. 92 382)))
 
-    ; Put things together
-    (.Add (.Controls form) title-lbl)
-    (.Add (.Controls form) db-lbl)
-    (.Add (.Controls form) db-txt)
-    (.Add (.Controls form) load-btn)
-    (.Add (.Controls form) migrate-btn)
+    ; DB TextField
+    (doto db-txt
+      (.set_Name "newDbName")
+      (.set_Width 86)
+      (.set_Location (Point. 172 380)))
+
+    ; Migrate button
+    (doto migrate-btn
+      (.set_Location (Point. 266 378))
+      (.set_Text "Migrate Tables...")
+      (.set_Size (Size. 105 23)))
+
+    ;Putting things together
+    (doto (.Controls form)
+      (.Add title-lbl)
+      (.Add db-lbl)
+      (.Add db-txt)
+      (.Add load-btn)
+      (.Add migrate-btn)
+      (.Add grp-box))
     
     (.Add (.Controls grp-box) chkd-list)
-    (.Add (.Controls form) grp-box)
 
     ;; Adding the button click event handlers
     (.add_Click load-btn
@@ -86,16 +90,15 @@
     (.add_Click migrate-btn
       (gen-delegate EventHandler [sender args]
 		    (let [mysql-con (mysql/get-connection conn-str)
-			  ms-db (sql/get-database ".\\SQLExpress" "clr_intro_4")]
-	  (println "class of ms-db: " (class ms-db))
-	  (println "state: " (.State ms-db))
+			  db-name (.Text db-txt)
+			  ms-db (sql/get-database ".\\SQLExpress"  db-name)]
+	  
 	  (doseq [c (.CheckedItems chkd-list)]
-	    (println c)
 	    (sql/create-table ms-db c (mysql/get-columns mysql-con c))
-	  (.Close mysql-con)
-	  ))))      
+	    (.Close mysql-con))
+	  (System.Windows.Forms.MessageBox/Show "Table migration complete!"))))      
     
     (doto form
       (.set_Text title-str)
-      (.set_Size (Size. 400 520))
+      (.set_Size (Size. 400 460))
       .ShowDialog)))
