@@ -21,8 +21,7 @@
 	migrate-btn (Button.)
 	grp-box (GroupBox.)
 	chkd-list (CheckedListBox.)
-	title-str "Rob's Table Migration Tool ClojureCLR style!"
-	]
+	title-str "Rob's Table Migration Tool ClojureCLR style!"]
     
     ; Title Label
     (doto title-lbl
@@ -95,7 +94,8 @@
 		ms-db (sql/get-database ".\\SQLExpress"  db-name)]
 	    (doseq [c (.CheckedItems chkd-list)]
 	      (sql/create-table ms-db c (mysql/get-columns mysql-con c))
-	      (.Close mysql-con))
+	      (.Close mysql-con)
+	      (.Close ms-db))
 	     (MessageBox/Show "Table migration complete!"))))      
     
     (doto form
