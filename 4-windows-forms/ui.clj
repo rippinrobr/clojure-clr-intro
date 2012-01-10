@@ -2,8 +2,8 @@
 
 (ns ui
   (:import [System.Windows.Forms Button GroupBox CheckedListBox Form
-	    TableLayoutPanel MessageBox PaintEventHandler Label TextBox])
-  (:import [System.Drawing Size Font FontStyle Point])
+	    MessageBox PaintEventHandler Label TextBox])
+  (:import [System.Drawing Size Font FontStyle GraphicsUnit Point])
   (:require [db.mysql :as mysql])
   (:require [db.sqlserver :as sql])
   (:gen-class))
@@ -29,7 +29,8 @@
       (.set_Text title-str)
       (.set_Location (Point. 12 12))
       (.set_Size (Size. 360 22))
-      (.set_Font (Font. "Microsoft Sans Serif" 12.0 System.Drawing.FontStyle/Bold System.Drawing.GraphicsUnit/Point 0)))
+      (.set_Font (Font. "Microsoft Sans Serif"
+			12.0 FontStyle/Bold GraphicsUnit/Point 0)))
     
     ; GroupBox
     (doto grp-box
@@ -89,14 +90,13 @@
 
     (.add_Click migrate-btn
       (gen-delegate EventHandler [sender args]
-		    (let [mysql-con (mysql/get-connection conn-str)
-			  db-name (.Text db-txt)
-			  ms-db (sql/get-database ".\\SQLExpress"  db-name)]
-	  
-	  (doseq [c (.CheckedItems chkd-list)]
-	    (sql/create-table ms-db c (mysql/get-columns mysql-con c))
-	    (.Close mysql-con))
-	  (System.Windows.Forms.MessageBox/Show "Table migration complete!"))))      
+	  (let [mysql-con (mysql/get-connection conn-str)
+	        db-name (.Text db-txt)
+		ms-db (sql/get-database ".\\SQLExpress"  db-name)]
+	    (doseq [c (.CheckedItems chkd-list)]
+	      (sql/create-table ms-db c (mysql/get-columns mysql-con c))
+	      (.Close mysql-con))
+	     (MessageBox/Show "Table migration complete!"))))      
     
     (doto form
       (.set_Text title-str)

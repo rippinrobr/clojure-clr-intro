@@ -57,8 +57,6 @@
 (defn get-database
   [server-name db-name]
   (let [server (Server. server-name)
-	;; either catch FailedOperationException or check to see if it
-	;; exists already
         db (Database. server db-name)]
     (.Create db)
     db))
