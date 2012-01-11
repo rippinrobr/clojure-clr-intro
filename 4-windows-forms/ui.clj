@@ -94,8 +94,8 @@
 		ms-db (sql/get-database ".\\SQLExpress"  db-name)]
 	    (doseq [c (.CheckedItems chkd-list)]
 	      (sql/create-table ms-db c (mysql/get-columns mysql-con c))
-	      (.Close mysql-con)
-	      (.Close ms-db))
+	      (.Close mysql-con))
+	     
 	     (MessageBox/Show "Table migration complete!"))))      
     
     (doto form
