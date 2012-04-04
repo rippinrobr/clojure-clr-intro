@@ -9,6 +9,14 @@
 	                                      WorkItemStore WorkItem])
   (:import [Microsoft.TeamFoundation.Server ICommonStructureService]))
 
+;; I'm using these defs for example purposes only.  In the 'real' code these will
+;; be parameters
+(def tfs-server-name "phw-ptrak")
+(def tfs-project-name "Rnd")
+(def tfs-wi-type "Bug")
+(def project-area "RnD\\Clojure-clr Testing")
+(def project-iteration "RnD\\Testing")
+     
 (defn create-work-item [wi-type title desc area iter]
   (let [wi (WorkItem. wi-type)]
     (set! (.Title wi) title)
@@ -22,15 +30,15 @@
     (.Add (.Attachments wi) attachment)))
 	
 (defn -main [& args]
-  (let [tfs (TeamFoundationServerFactory/GetServer "phw-ptrak")
+  (let [tfs (TeamFoundationServerFactory/GetServer tfs-server-name)
 	wi-store (WorkItemStore. tfs)
-	project (first (filter #(= (.Name %) "RnD") (.Projects wi-store)))
-        bug-type (first (filter #(= (.Name %) "Bug") (.WorkItemTypes project)))
+	project (first (filter #(= (.Name %) tfs-project-name) (.Projects wi-store)))
+        bug-type (first (filter #(= (.Name %) tfs-wi-type) (.WorkItemTypes project)))
         work-item (create-work-item bug-type
 		      (str "clj-clr bug creation (" (.ToString (DateTime/Now)) ")")
 		       "This is a bug created from my clj-clr code!!!"
-		       "RnD\\Clojure-clr Testing"
-		       "RnD\\Testing")]
+		       project-area
+		       project-iteration)]
 
     (add-attachment work-item
 		    "clg-clr-tfs-bug.PNG"
