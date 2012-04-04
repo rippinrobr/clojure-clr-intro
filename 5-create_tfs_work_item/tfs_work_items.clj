@@ -12,7 +12,7 @@
 ;; I'm using these defs for example purposes only.  In the 'real' code these will
 ;; be parameters
 (def tfs-server-name "phw-ptrak")
-(def tfs-project-name "Rnd")
+(def tfs-project-name "RnD")
 (def tfs-wi-type "Bug")
 (def project-area "RnD\\Clojure-clr Testing")
 (def project-iteration "RnD\\Testing")
